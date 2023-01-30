@@ -11,12 +11,12 @@ arcade.start_render()
 
 # box draw
 
-t = arcade.csscolor.DARK_GREEN
+v = arcade.csscolor.DARK_GREEN
 
-arcade.draw_rectangle_filled(300,200,700,400, t)
+arcade.draw_rectangle_filled(300,200,700,400, v)
 
 # Defines Color for  each Sine Wave
-v = arcade.csscolor.DARK_GREEN
+
 
 
 # Draw Mountains
@@ -91,8 +91,7 @@ for i in range(360):
 
 
 
-# Draw Pipe and Sun
-
+# Draw Pipe and Sky
 
 f = arcade.csscolor.BROWN
 s =  arcade.csscolor.YELLOW
@@ -101,9 +100,12 @@ s =  arcade.csscolor.YELLOW
 arcade.draw_rectangle_filled(300,200,200,400, f)
 arcade.draw_ellipse_filled(515,500,100,100, s)
 
+
+
+
+
 o = arcade.finish_render()
 m = arcade.run()
 
 o
 m
-
