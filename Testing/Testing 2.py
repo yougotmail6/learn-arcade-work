@@ -1,17 +1,23 @@
-PI = 3.14159269
+import random
 
-awnserA = True
-anwserB = False
+import arcade
+import math
 
-print(awnserA or anwserB)
-print(awnserA and anwserB)
-print(not awnserA)
+arcade.open_window(600,600, "Color Test")
+arcade.set_background_color(arcade.csscolor.BLACK)
+arcade.start_render()
 
-anwserC = 10
-awnserD = 20
 
-print((anwserC < awnserD))
+v = arcade.csscolor.GREEN
 
-anwserC *= awnserD
-print(anwserC)
+i = random.Random
+
+
+
+arcade.draw_rectangle_filled(i,400,400,400, v)
+
+
+arcade.finish_render()
+arcade.run()
+
 
