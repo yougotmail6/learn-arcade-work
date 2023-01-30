@@ -2,7 +2,7 @@ import arcade
 import math
 
 
-#Arcade Settings
+# Arcade Settings
 
 arcade.open_window(600,600, "Mario Tube with Mountains.")
 arcade.set_background_color(arcade.csscolor.LIGHT_SKY_BLUE)
@@ -13,7 +13,7 @@ arcade.start_render()
 arcade.draw_rectangle_filled(300,200,700,400, arcade.color.GRAY)
 
 
-#Draw Mountains
+# Draw Mountains
 
 for i in range(360):
     arcade.draw_point(i / .4 + 0, math.sin(math.radians(i)) * 100 + 400, arcade.csscolor.GRAY, 4)
@@ -85,7 +85,7 @@ for i in range(360):
 
 
 
-#Draw Pipe and Sun
+# Draw Pipe and Sun
 arcade.draw_rectangle_filled(300,200,200,400, arcade.color.GREEN)
 arcade.draw_ellipse_filled(515,500,100,100, arcade.color.YELLOW)
 
