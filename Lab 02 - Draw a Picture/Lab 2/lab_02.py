@@ -109,3 +109,7 @@ m = arcade.run()
 
 o
 m
+
+
+# This code uses variables to represent the csscolor, this optimized the code significantly. Normal size when using the csscolor, would be 6.8 Kilobytes,
+# With the optimizations used in this code, it is now 5.54 KB, improving it by almost 1.3 KB.
