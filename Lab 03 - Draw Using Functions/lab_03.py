@@ -3,52 +3,46 @@ import arcade
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-v = arcade.csscolor.GREEN
-q = arcade.csscolor.SKY_BLUE
-b = arcade.csscolor.BROWN
-p = arcade.csscolor.LIGHT_GOLDENROD_YELLOW
-j = arcade.make_transparent_color(p, 150)
-k = arcade.csscolor.YELLOW
-m = arcade.csscolor.ORANGE
-w = arcade.make_transparent_color(m,600)
 
 
 
 def draw_grass():
     """ Draw the ground """
-    arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 3, 0, v)
+    arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 3, 0, arcade.csscolor.GREEN)
 
 
 def draw_tree(x, y):
-    """ Draw a snow person """
+    """ Draw a Tree """
 
 
 
     # Trunk
-    arcade.draw_rectangle_filled(x+15, y+175, 50, 275, b)
+    arcade.draw_rectangle_filled(x+15, y+175, 50, 275, arcade.csscolor.BROWN)
 
 
     # Leaves
-    arcade.draw_circle_filled(x + 15, 310 + y, 100, v)
+    arcade.draw_circle_filled(x + 15, 310 + y, 100, arcade.csscolor.GREEN)
     arcade.draw_circle_filled(x + 15, 310 + y, 100, arcade.make_transparent_color(arcade.color.DARK_GREEN,150))
 
 def draw_sun(x, y):
 
-    arcade.draw_circle_filled(x,y + 175, 100,k)
+    arcade.draw_circle_filled(x,y + 175, 100,arcade.csscolor.YELLOW)
 
 
 
-    arcade.draw_circle_filled(x,y + 175, 100, j)
+    arcade.draw_circle_filled(x,y + 175, 100, arcade.make_transparent_color(arcade.csscolor.LIGHT_GOLDENROD_YELLOW, 150))
 
 
-    arcade.draw_circle_filled(x,y + 175, 100, w)
+    arcade.draw_circle_filled(x,y + 175, 100, arcade.make_transparent_color(arcade.csscolor.ORANGE,600))
+
+
 
 
 
 
 def main():
     arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing with Functions")
-    arcade.set_background_color(q)
+    arcade.set_background_color(arcade.csscolor.LIGHT_SKY_BLUE)
     arcade.start_render()
 
     draw_grass()

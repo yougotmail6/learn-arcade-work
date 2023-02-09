@@ -21,7 +21,9 @@ arcade.draw_rectangle_filled(300,200,700,400, v)
 
 # Draw Mountains
 
-for i in range(360):
+for i in range(720):
+    arcade.draw_line(i, math.sin(math.radians(i) * 4) * 40 + 450, i, 400, v,1)
+    """
     arcade.draw_point(i / .4 + 0, math.sin(math.radians(i)) * 100 + 400, v, 4)
     arcade.draw_point(i / .4 + 5, math.sin(math.radians(i)) * 100 + 398, v, 4)
     arcade.draw_point(i / .4 + 10, math.sin(math.radians(i)) * 100 + 396, v, 4)
@@ -86,7 +88,7 @@ for i in range(360):
     arcade.draw_point(i / .4 + 305, math.sin(math.radians(i)) * 100 + 278, v, 4)
     arcade.draw_point(i / .4 + 310, math.sin(math.radians(i)) * 100 + 276, v, 4)
 
-
+"""
 
 
 
@@ -104,11 +106,8 @@ arcade.draw_ellipse_filled(515,500,100,100, s)
 
 
 
-o = arcade.finish_render()
-q = arcade.run()
-
-o
-q
+arcade.finish_render()
+arcade.run()
 
 
 
