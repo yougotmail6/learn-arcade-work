@@ -105,10 +105,11 @@ arcade.draw_ellipse_filled(515,500,100,100, s)
 
 
 o = arcade.finish_render()
-m = arcade.run()
+q = arcade.run()
 
 o
-m
+q
+
 
 
 # This code uses variables to represent the csscolor, this optimized the code significantly. Normal size when using the csscolor, would be 6.8 Kilobytes,
