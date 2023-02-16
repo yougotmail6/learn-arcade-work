@@ -1,3 +1,5 @@
+# This is a WIP,it is very buggy.
+
 import random
 
 def main():
