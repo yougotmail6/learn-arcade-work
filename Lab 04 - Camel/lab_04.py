@@ -91,7 +91,7 @@ def main():
             print("The Natives are locating your position")
             
 
-        elif natives>=0:
+        elif natives>=0:# Add in Native Distance Function to this.
             print(" The Natives shot you with a posion tipped arrow, Game Over!!")
             done=True
 
