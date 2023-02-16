@@ -87,13 +87,14 @@ def main():
             print(" The Camel is starting to slow down. ")
 
 
-        if natives>=-15:
+        if natives<15:
             print("The Natives are locating your position")
             
 
-        elif natives>=0:
-            print(" The Natives shot you with a posion tipped arrow, Game Over!!")
-            done=True
+            if natives>0:
+                print(" The Natives shot you with a posion tipped arrow, Game Over!!")
+                done=True
+                break
 
 
         if miles_traveled>200:
