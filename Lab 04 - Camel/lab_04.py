@@ -87,11 +87,11 @@ def main():
             print(" The Camel is starting to slow down. ")
 
 
-        if natives>=-15:
+        if natives>=-15:# Switch to range between 0 to -15. Also add Player Distance.
             print("The Natives are locating your position")
             
 
-        elif natives>=0:# Add in Native Distance Function to this.
+        elif natives>=0:# Add in Player Distance
             print(" The Natives shot you with a posion tipped arrow, Game Over!!")
             done=True
 
