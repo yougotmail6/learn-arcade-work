@@ -1,3 +1,58 @@
+<<<<<<< HEAD
+import random
+A = 1
+D = 4
+
+
+
+def RNG_Gen():
+    random.randrange(20)
+
+RNG_Gen()
+
+def Surrender():
+    input(D)
+
+Surrender()
+
+def Straight():
+    input(A)
+    print("Straight", RNG_Gen())
+Straight()
+
+
+
+def main():
+    print("Welcome to A Game called Camel")
+    print("A Game that you guessed it involves a Camel!")
+    print("In fact you, yes you! Commited a Felony of stealing a Camel. Now you need to get out.")
+    print("Using your stolen Camel, need to escape through the desert to the criminal den.")
+
+main()
+
+input()
+
+def The_Getaway():
+    print("In order to get out of the stable, you have three options, left, right, and straight")
+    A = print("Straight")
+    B = print("Right")
+    C = print("Left")
+    D = print("Surrender to authorities.")
+
+    if input():
+
+        if input(D):
+            Surrender()
+
+        if input(A):
+            Straight()
+
+
+The_Getaway()
+
+=======
+# This is a WIP,it is very buggy.
+
 import random
 
 def main():
@@ -87,6 +142,7 @@ def main():
             print(" The Camel is starting to slow down. ")
 
 
+<<<<<<< HEAD
         if natives<15:
             print("The Natives are locating your position")
             
@@ -95,6 +151,15 @@ def main():
                 print(" The Natives shot you with a posion tipped arrow, Game Over!!")
                 done=True
                 break
+=======
+        if natives>=-15:# Switch to range between 0 to -15. Also add Player Distance.
+            print("The Natives are locating your position")
+            
+
+        elif natives>=0:# Add in Player Distance
+            print(" The Natives shot you with a posion tipped arrow, Game Over!!")
+            done=True
+>>>>>>> cf1beecf87d3343fe42a47921c554eeb0662a6de
 
 
         if miles_traveled>200:
@@ -107,3 +172,4 @@ main()
 
 
 
+>>>>>>> 200d425c320b33fb6484f49a7e2d5b66c825b9b7
