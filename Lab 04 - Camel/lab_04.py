@@ -142,6 +142,16 @@ def main():
             print(" The Camel is starting to slow down. ")
 
 
+<<<<<<< HEAD
+        if natives<15:
+            print("The Natives are locating your position")
+            
+
+            if natives>0:
+                print(" The Natives shot you with a posion tipped arrow, Game Over!!")
+                done=True
+                break
+=======
         if natives>=-15:# Switch to range between 0 to -15. Also add Player Distance.
             print("The Natives are locating your position")
             
@@ -149,6 +159,7 @@ def main():
         elif natives>=0:# Add in Player Distance
             print(" The Natives shot you with a posion tipped arrow, Game Over!!")
             done=True
+>>>>>>> cf1beecf87d3343fe42a47921c554eeb0662a6de
 
 
         if miles_traveled>200:
