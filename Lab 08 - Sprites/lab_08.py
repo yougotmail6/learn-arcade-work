@@ -1,4 +1,4 @@
-""" Sprite Sample Program """
+
 
 import random
 import arcade
