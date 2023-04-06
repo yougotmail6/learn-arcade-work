@@ -94,8 +94,7 @@ class MyGame(arcade.Window):
             wall.center_x = x
             wall.center_y = 350
             self.wall_list.append(wall)
-        #self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
-
+        
         # --- Place walls with a list
 
         for x in range(100, 2000, 300):
