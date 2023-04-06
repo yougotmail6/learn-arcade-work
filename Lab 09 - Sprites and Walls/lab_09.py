@@ -1,10 +1,5 @@
 """
-Scroll around a large screen.
 
-Artwork from https://kenney.nl
-
-If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.sprite_move_scrolling
 
 Your Computer May have isssues running this
 """
@@ -99,8 +94,7 @@ class MyGame(arcade.Window):
             wall.center_x = x
             wall.center_y = 350
             self.wall_list.append(wall)
-        #self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
-
+        
         # --- Place walls with a list
 
         for x in range(100, 2000, 300):
