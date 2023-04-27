@@ -6,6 +6,14 @@ SCREEN_HEIGHT = 600
 Cursor_Scaling = 1
 UI_Scaling = 2.5
 Attack_Icon_Scaling = .856
+Player_Ship_Scaling = .5
+
+
+
+
+
+
+
 class MyGame(arcade.Window):
     """ Our custom Window Class"""
 
@@ -18,6 +26,7 @@ class MyGame(arcade.Window):
         self.cursor_list = None
         self.Attack_Icon_list = None
         self.Attack_Icon_list_Second = None
+        self.Player_Ship_List = None
 
 
         self.score = 30
@@ -33,6 +42,7 @@ class MyGame(arcade.Window):
         self.cursor_list = arcade.SpriteList()
         self.Attack_Icon_list =arcade.SpriteList()
         self.Attack_Icon_list_Second = arcade.SpriteList()
+        self.Player_Ship_List = arcade.SpriteList()
 
         self.UI_Left_Arrow = arcade.Sprite("blue_sliderLeft.png", UI_Scaling)
         self.UI_Left_Arrow.center_x = 60
@@ -127,6 +137,14 @@ class MyGame(arcade.Window):
         self.Attack_Icon_Attack_2nd_Second_Circle.center_y = 55
         self.Attack_Icon_list_Second.append(self.Attack_Icon_Attack_2nd_Second_Circle)
 
+        #Player Ship
+
+        self.Player_Ship = arcade.Sprite("Player.png", Player_Ship_Scaling)
+        self.Player_Ship.center_x = 150
+        self.Player_Ship.center_y = 200
+        self.Player_Ship.angle = 45
+        self.Player_Ship_List.append(self.Player_Ship)
+
 
         self.cursor = arcade.Sprite("cursor_pointerFlat.png", Cursor_Scaling)
         self.cursor.center_x = 100
@@ -138,10 +156,12 @@ class MyGame(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self.UI_List.draw()
-
+        arcade.draw_rectangle_filled(300,55,8,40,(arcade.color.RED),0)
         self.Attack_Icon_list.draw()
         self.Attack_Icon_list_Second.draw()
+        self.Player_Ship_List.draw()
         self.cursor_list.draw() #keep this last, order matters
+
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
         self.cursor.center_x = x
