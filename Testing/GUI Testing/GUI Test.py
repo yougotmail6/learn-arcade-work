@@ -1,106 +1,68 @@
-import arcade
-import random
+import pygame, sys
+class Player(pygame.sprite.Sprite):
+	def __init__(self):
+		super().__init__()
+		self.current_health = 200
+		self.target_health = 500
+		self.max_health = 1000
+		self.health_bar_length = 400
+		self.health_ratio = self.max_health / self.health_bar_length
+		self.health_change_speed = 5
 
-SPRITE_SCALING_PLAYER = .75
-SPRITE_SCALING_UI = 1.2
-SPRITE_SCALING_Dummy = 2
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-Dummy_Count = 45
-class MyGame(arcade.Window):
-    """ Our custom Window Class"""
+	def get_damage(self,amount):
+		if self.target_health > 0:
+			self.target_health -= amount
+		if self.target_health < 0:
+			self.target_health = 0
 
-    def __init__(self):
-        """ Initializer """
-        # Call the parent class initializer
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
+	def get_health(self,amount):
+		if self.target_health < self.max_health:
+			self.target_health += amount
+		if self.target_health > self.max_health:
+			self.target_health = self.max_health
 
-        self.player_list = None
-        self.check_list = None
-        self.player_sprite = None
-        self.dummy_list = None
+	def update(self):
+		self.advanced_health()
 
-        self.score = 30
+	def advanced_health(self):
+		transition_width = 0
+		transition_color = (255,0,0)
+		if self.current_health < self.target_health:
+			self.current_health += self.health_change_speed
+			transition_width = int((self.target_health - self.current_health) / self.health_ratio)
+			transition_color = (0,255,0)
 
-        self.set_mouse_visible(False)
+		if self.current_health > self.target_health:
+			self.current_health -= self.health_change_speed
+			transition_width = int((self.target_health - self.current_health) / self.health_ratio)
+			transition_color = (255,255,0)
 
-        arcade.set_background_color(arcade.color.BLACK)
+		health_bar_width = int(self.current_health / self.health_ratio)
+		health_bar = pygame.Rect(10,10,health_bar_width,25)
+		transition_bar = pygame.Rect(health_bar.right,10,transition_width,25)
 
-
-
-    def setup(self):
-        self.player_list = arcade.SpriteList()
-        self.check_list = arcade.SpriteList()
-        self.dummy_list = arcade.SpriteList()
-
-
-        self.player_sprite = arcade.Sprite("crossair_red.png", SPRITE_SCALING_PLAYER)
-        self.player_sprite.center_x = 50
-        self.player_sprite.center_y = 50
-        self.player_list.append(self.player_sprite)
-
-
-        self.check_sprite = arcade.Sprite("blue_boxCheckmark.png", SPRITE_SCALING_UI)
-        self.check_sprite.center_x = 300
-        self.check_sprite.center_y = 300
-        self.check_list.append(self.check_sprite)
-
-        for i in range(Dummy_Count):
-        # Create the coin instance
-        # Coin image from kenney.nl
-            coin = arcade.Sprite("scifiUnit_13.png", SPRITE_SCALING_Dummy)
-
-            # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
-
-            # Add the coin to the lists
-            self.dummy_list.append(coin)
-
-    def on_draw(self):
-        arcade.start_render()
-        self.player_list.draw()
-        self.check_list.draw()
-        self.dummy_list.draw()
-
-        output = f"Ammo: {self.score}"
-        arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+		pygame.draw.rect(screen,(255,0,0),health_bar)
+		pygame.draw.rect(screen,transition_color,transition_bar)
+		pygame.draw.rect(screen,(255,255,255),(10,10,self.health_bar_length,25),4)
 
 
 
-    def on_mouse_motion(self, x, y, dx, dy):
-        """ Handle Mouse Motion """
+pygame.init()
+screen = pygame.display.set_mode((800,800))
+clock = pygame.time.Clock()
+player = pygame.sprite.GroupSingle(Player())
 
-        #Move the center of the player sprite to match the mouse x, y
-        self.player_sprite.center_x = x
-        self.player_sprite.center_y = y
-
-    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        self.player_sprite.center_x = x
-        self.player_sprite.center_y = y
-        arcade.MOUSE_BUTTON_RIGHT
-
-
-
-    def update(self, delta_time):
-        self.dummy_list.update()
-
-
-        dummy_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
-                                                              self.dummy_list)
-        for coin in dummy_hit_list:
-            coin.remove_from_sprite_lists()
-            self.score -= 1
-
-        
-
-
-def main():
-    """ Main method """
-    window = MyGame()
-    window.setup()
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
+while True:
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			sys.exit()
+			pygame.quit()
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_UP:
+				player.sprite.get_health(200)
+			if event.key == pygame.K_DOWN:
+				player.sprite.get_damage(200)
+	screen.fill((30,30,30))
+	player.update()
+	pygame.display.update()
+	clock.tick(60)

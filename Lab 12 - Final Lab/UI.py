@@ -1,4 +1,4 @@
-
+import random
 import arcade
 
 SCREEN_WIDTH = 600
@@ -7,7 +7,7 @@ Cursor_Scaling = 1
 UI_Scaling = 2.5
 Attack_Icon_Scaling = .856
 Player_Ship_Scaling = .5
-
+HP_Size = .1
 
 
 
@@ -27,6 +27,7 @@ class MyGame(arcade.Window):
         self.Attack_Icon_list = None
         self.Attack_Icon_list_Second = None
         self.Player_Ship_List = None
+        self.HP_List = None
 
 
         self.score = 30
@@ -43,6 +44,7 @@ class MyGame(arcade.Window):
         self.Attack_Icon_list =arcade.SpriteList()
         self.Attack_Icon_list_Second = arcade.SpriteList()
         self.Player_Ship_List = arcade.SpriteList()
+        self.HP_List = arcade.SpriteList()
 
         self.UI_Left_Arrow = arcade.Sprite("blue_sliderLeft.png", UI_Scaling)
         self.UI_Left_Arrow.center_x = 60
@@ -127,15 +129,29 @@ class MyGame(arcade.Window):
         self.Attack_Icon_list.append(self.Attack_Icon_Attack_Base)
 
         #2nd Attack Draw 2
-        self.Attack_Icon_Attack_2nd_First_Circle = arcade.Sprite("crossair_black.png", Attack_Icon_Scaling)
+        self.Attack_Icon_Attack_2nd_First_Circle = arcade.Sprite("crossair_redOutline.png", Attack_Icon_Scaling)
         self.Attack_Icon_Attack_2nd_First_Circle.center_x = 435
         self.Attack_Icon_Attack_2nd_First_Circle.center_y = 55
         self.Attack_Icon_list_Second.append(self.Attack_Icon_Attack_2nd_First_Circle)
 
-        self.Attack_Icon_Attack_2nd_Second_Circle = arcade.Sprite("crossair_black.png", Attack_Icon_Scaling)
-        self.Attack_Icon_Attack_2nd_Second_Circle.center_x = 460
-        self.Attack_Icon_Attack_2nd_Second_Circle.center_y = 55
-        self.Attack_Icon_list_Second.append(self.Attack_Icon_Attack_2nd_Second_Circle)
+
+
+
+        # --- Place walls with a list
+        coordinate_list = [[300, 40],
+                           [300, 50],
+                           [300, 60],
+                           [300, 70]]
+
+        # Loop through coordinates
+        for coordinate in coordinate_list:
+            HP = arcade.Sprite("red_button13.png",HP_Size)
+            HP.center_x = coordinate[0]
+            HP.center_y = coordinate[1]
+            HP.angle = 90
+            self.HP_List.append(HP)
+
+
 
         #Player Ship
 
@@ -144,6 +160,10 @@ class MyGame(arcade.Window):
         self.Player_Ship.center_y = 200
         self.Player_Ship.angle = 45
         self.Player_Ship_List.append(self.Player_Ship)
+
+
+
+
 
 
         self.cursor = arcade.Sprite("cursor_pointerFlat.png", Cursor_Scaling)
@@ -156,16 +176,26 @@ class MyGame(arcade.Window):
     def on_draw(self):
         arcade.start_render()
         self.UI_List.draw()
-        arcade.draw_rectangle_filled(300,55,8,40,(arcade.color.RED),0)
+
         self.Attack_Icon_list.draw()
         self.Attack_Icon_list_Second.draw()
         self.Player_Ship_List.draw()
+        arcade.draw_rectangle_filled(300,55,3,45,(arcade.color.BLACK),0)
+        self.HP_List.draw()
         self.cursor_list.draw() #keep this last, order matters
 
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
         self.cursor.center_x = x
         self.cursor.center_y = y
+
+
+    def base_attack(self):
+        self.on_mouse_press()
+
+
+
+
 
 
 
