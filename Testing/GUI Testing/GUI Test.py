@@ -1,68 +1,165 @@
-import pygame, sys
-class Player(pygame.sprite.Sprite):
-	def __init__(self):
-		super().__init__()
-		self.current_health = 200
-		self.target_health = 500
-		self.max_health = 1000
-		self.health_bar_length = 400
-		self.health_ratio = self.max_health / self.health_bar_length
-		self.health_change_speed = 5
+import pyglet
+from pyglet.window import key, mouse
 
-	def get_damage(self,amount):
-		if self.target_health > 0:
-			self.target_health -= amount
-		if self.target_health < 0:
-			self.target_health = 0
+from import pyglet
+from pyglet.window import key, mouse
 
-	def get_health(self,amount):
-		if self.target_health < self.max_health:
-			self.target_health += amount
-		if self.target_health > self.max_health:
-			self.target_health = self.max_health
+from util.camera import CenteredCamera
+from util.pyglethelper import draw_polygon
+from worldgen import (CircleBasedTriangleStrategy, DistanceBasedOffsetStrategy,
+                      ExponentialSplitsStrategy, LongestEdgeSplitStrategy)
 
-	def update(self):
-		self.advanced_health()
-
-	def advanced_health(self):
-		transition_width = 0
-		transition_color = (255,0,0)
-		if self.current_health < self.target_health:
-			self.current_health += self.health_change_speed
-			transition_width = int((self.target_health - self.current_health) / self.health_ratio)
-			transition_color = (0,255,0)
-
-		if self.current_health > self.target_health:
-			self.current_health -= self.health_change_speed
-			transition_width = int((self.target_health - self.current_health) / self.health_ratio)
-			transition_color = (255,255,0)
-
-		health_bar_width = int(self.current_health / self.health_ratio)
-		health_bar = pygame.Rect(10,10,health_bar_width,25)
-		transition_bar = pygame.Rect(health_bar.right,10,transition_width,25)
-
-		pygame.draw.rect(screen,(255,0,0),health_bar)
-		pygame.draw.rect(screen,transition_color,transition_bar)
-		pygame.draw.rect(screen,(255,255,255),(10,10,self.health_bar_length,25),4)
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 500
 
 
+class Window(pyglet.window.Window):
+    def __init__(self, terrain_gen_strategy, initial_terrain_strategy):
+        super().__init__(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, caption="World Generation Tool", resizable=True)
 
-pygame.init()
-screen = pygame.display.set_mode((800,800))
-clock = pygame.time.Clock()
-player = pygame.sprite.GroupSingle(Player())
+        # Load and set window icon
+        icon = pyglet.resource.image("icon.png")
+        self.set_icon(icon)
 
-while True:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			sys.exit()
-			pygame.quit()
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_UP:
-				player.sprite.get_health(200)
-			if event.key == pygame.K_DOWN:
-				player.sprite.get_damage(200)
-	screen.fill((30,30,30))
-	player.update()
-	pygame.display.update()
-	clock.tick(60)
+        # Create camera
+        self.camera = CenteredCamera(self)
+        self.reset_camera()
+
+        # Create terrain
+        self.terrain = initial_terrain_strategy.generate_initial_terrain(self.width, self.height)
+        self.terrain_gen_strategy = terrain_gen_strategy
+        self.initial_terrain_strategy = initial_terrain_strategy
+
+        # Create helper labels
+        self.helper_labels = [
+            pyglet.text.Label('[R]: Reset the current terrain', x=10, y=50),
+            pyglet.text.Label('[Space]: Randomly mutate the terrain', x=10, y=30),
+            pyglet.text.Label('[Esc]: Exit the program', x=10, y=10)
+        ]
+
+    def reset_camera(self):
+        self.camera.position = self.width // 2, self.height // 2
+        self.camera.zoom = 1
+
+    def on_draw(self):
+        self.clear()
+
+        with self.camera:
+            draw_polygon(*self.terrain.points)
+
+        for label in self.helper_labels:
+            label.draw()
+
+    def on_key_press(self, symbol, mod):
+        if symbol == key.ESCAPE:
+            self.close()
+        elif symbol == key.SPACE:
+            self.terrain_gen_strategy.generate_points(self.terrain)
+        elif symbol == key.R:
+            self.terrain = self.initial_terrain_strategy.generate_initial_terrain(
+                self.width, self.height)
+            self.terrain_gen_strategy.on_reset()
+            self.reset_camera()
+
+    def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
+        if buttons & mouse.LEFT:
+            self.camera.move(-dx / self.camera.zoom, -dy / self.camera.zoom)
+
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        self.camera.zoom += scroll_y
+
+    def run(self):
+        pyglet.app.run()
+
+
+def main():
+    terrain_gen_strategy = ExponentialSplitsStrategy(
+        LongestEdgeSplitStrategy(DistanceBasedOffsetStrategy()), 1)
+
+    init_strategy = CircleBasedTriangleStrategy()
+
+    window = Window(terrain_gen_strategy, init_strategy)
+    window.run()
+
+
+if __name__ == '__main__':
+    main().camera import CenteredCamera
+from util.pyglethelper import draw_polygon
+from worldgen import (CircleBasedTriangleStrategy, DistanceBasedOffsetStrategy,
+                      ExponentialSplitsStrategy, LongestEdgeSplitStrategy)
+
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 500
+
+
+class Window(pyglet.window.Window):
+    def __init__(self, terrain_gen_strategy, initial_terrain_strategy):
+        super().__init__(width=WINDOW_WIDTH, height=WINDOW_HEIGHT, caption="World Generation Tool", resizable=True)
+
+        # Load and set window icon
+        icon = pyglet.resource.image("icon.png")
+        self.set_icon(icon)
+
+        # Create camera
+        self.camera = CenteredCamera(self)
+        self.reset_camera()
+
+        # Create terrain
+        self.terrain = initial_terrain_strategy.generate_initial_terrain(self.width, self.height)
+        self.terrain_gen_strategy = terrain_gen_strategy
+        self.initial_terrain_strategy = initial_terrain_strategy
+
+        # Create helper labels
+        self.helper_labels = [
+            pyglet.text.Label('[R]: Reset the current terrain', x=10, y=50),
+            pyglet.text.Label('[Space]: Randomly mutate the terrain', x=10, y=30),
+            pyglet.text.Label('[Esc]: Exit the program', x=10, y=10)
+        ]
+
+    def reset_camera(self):
+        self.camera.position = self.width // 2, self.height // 2
+        self.camera.zoom = 1
+
+    def on_draw(self):
+        self.clear()
+
+        with self.camera:
+            draw_polygon(*self.terrain.points)
+
+        for label in self.helper_labels:
+            label.draw()
+
+    def on_key_press(self, symbol, mod):
+        if symbol == key.ESCAPE:
+            self.close()
+        elif symbol == key.SPACE:
+            self.terrain_gen_strategy.generate_points(self.terrain)
+        elif symbol == key.R:
+            self.terrain = self.initial_terrain_strategy.generate_initial_terrain(
+                self.width, self.height)
+            self.terrain_gen_strategy.on_reset()
+            self.reset_camera()
+
+    def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
+        if buttons & mouse.LEFT:
+            self.camera.move(-dx / self.camera.zoom, -dy / self.camera.zoom)
+
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        self.camera.zoom += scroll_y
+
+    def run(self):
+        pyglet.app.run()
+
+
+def main():
+    terrain_gen_strategy = ExponentialSplitsStrategy(
+        LongestEdgeSplitStrategy(DistanceBasedOffsetStrategy()), 1)
+
+    init_strategy = CircleBasedTriangleStrategy()
+
+    window = Window(terrain_gen_strategy, init_strategy)
+    window.run()
+
+
+if __name__ == '__main__':
+    main()
