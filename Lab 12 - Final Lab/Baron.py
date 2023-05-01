@@ -16,24 +16,32 @@ def Baron():  # High Damage however low Health
         print("""
         A. Attack
         B. Regenerate Beam Coils
-        C. Full Power to Phasers
-        D. Check Ship Systems""")
+        C. Regen Health
+        D. Full Power to Phasers
+        E. Check Ship Systems""")
 
         user_choice = input("Please pick one! ")
 
         if user_choice.upper() == "B":
-            print("You Replenish Some of your Beam Coils")
-            beam_coils = beam_coils + random.randrange(1, 3)
+            print("You replensish your Beam Coils")
+            beam_coils = 6
             print("You know have " + str(beam_coils), "Beam Coils to use")
 
 
-        elif user_choice.upper() == "C":
+        elif user_choice.upper() == "D":
             print("All Power to Foreward Faceing Weapons and Fire! ")
             pdamage = pdamage + random.randrange(80, 320)
             print("the Baron now has " + str(hp - pdamage), "hit points left")
             badamage = badamage + random.randrange(120, 210)
             print("You have " + str(player_hp - badamage), "hit points left")
             beam_coils = beam_coils - random.randrange(2, 4)
+
+
+        elif user_choice.upper() == "C":
+            print("You regenerate hull plating ")
+            player_hp = 450
+            print("You now have: " + str(player_hp))
+            
 
 
         elif user_choice.upper() == "A":
@@ -44,9 +52,8 @@ def Baron():  # High Damage however low Health
             print("You have " + str(player_hp - badamage), "Hit Points Left")
             beam_coils = beam_coils - int(1)
 
-        elif user_choice.upper() == "D":
+        elif user_choice.upper() == "E":
             print("Current HP: " + str(player_hp))
-            print("Osprey HP: " + str(hp))
             print("Beam Coils Left: " + str(beam_coils))
 
         if hp - pdamage < 0:
