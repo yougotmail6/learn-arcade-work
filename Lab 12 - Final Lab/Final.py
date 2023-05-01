@@ -5,19 +5,15 @@
 def main():
 
     import Baron
-    import Gorilla
+    
     import Mantis
     import Osprey
-    import random
-
-
+    import Gorilla
     
-    ship_list = [Baron, Gorilla, Mantis, Osprey]
-
-    
-
-    
-    print(random.choice(ship_list))
+    Baron
+    Mantis
+    Osprey
+    Gorilla
 
         
         
