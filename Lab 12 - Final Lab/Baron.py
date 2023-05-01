@@ -39,7 +39,7 @@ def Baron():  # High Damage however low Health
 
         elif user_choice.upper() == "C":
             print("You regenerate hull plating ")
-            player_hp = 450
+            player_hp = player_hp + 450
             print("You now have: " + str(player_hp))
             
 

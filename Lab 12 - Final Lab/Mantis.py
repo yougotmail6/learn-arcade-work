@@ -31,7 +31,7 @@ def Mantis():
 
         if user_choice.upper() == "C":
             print("You regenrate Hull Plating ")
-            player_hp = 450
+            player_hp = player_hp + 450
             print("You now have " +str(player_hp))
 
         if user_choice.upper() == "D":
