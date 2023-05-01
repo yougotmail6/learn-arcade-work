@@ -47,5 +47,5 @@ def Mantis():
             print("Your ship has been destroyed")
             done = True
 
-if __name__ == Mantis:
-    Mantis()
+
+Mantis()

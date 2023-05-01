@@ -3,7 +3,12 @@ import random
 
 
 
+
+
 def Gorilla():
+
+    
+    
     print \
         (" The sounds of Monkeys appraching sparks your intrest. The Gorrila is a foremidable opponent, capable of prolonging battle and dealing as much damage as possible.")
 
@@ -51,5 +56,5 @@ def Gorilla():
             print("Your ship has been destroyed")
             done = True
 
-if __name__ == Gorilla:
-    Gorilla()
+
+Gorilla()

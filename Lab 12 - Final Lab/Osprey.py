@@ -51,5 +51,5 @@ def osprey():
             print("Your ship has been destroyed")
             done = True
 
-if __name__ == osprey:
-    osprey()
+
+osprey()
