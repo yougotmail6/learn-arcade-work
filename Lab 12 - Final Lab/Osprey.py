@@ -4,7 +4,7 @@
 import random
 
 
-def main():
+def osprey():
     print("You hear the call of the Osprey ")
     print("The Osprey is a versitle well made ship, good HP, but low on Damage and cannot do Full Weapons Blast")
 
@@ -51,5 +51,5 @@ def main():
             print("Your ship has been destroyed")
             done = True
 
-
-main()
+if __name__ == osprey:
+    osprey()

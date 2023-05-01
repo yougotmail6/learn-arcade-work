@@ -61,5 +61,5 @@ def Baron():  # High Damage however low Health
             print("You suffered a beam overload due to lack of charges")
             done = True
 
-
-Baron()
+if __name__ == Baron:
+    Baron()

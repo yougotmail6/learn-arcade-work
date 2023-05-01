@@ -4,7 +4,7 @@
 import random
 
 
-def main():
+def Mantis():
     print("You hear the souls praying to the Mantis.")
 
     done = False
@@ -47,5 +47,5 @@ def main():
             print("Your ship has been destroyed")
             done = True
 
-
-main()
+if __name__ == Mantis:
+    Mantis()
